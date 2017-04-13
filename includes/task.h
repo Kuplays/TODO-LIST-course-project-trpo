@@ -2,8 +2,8 @@
 #define TASK_H
 struct Task {
     int id;
-    char[40] tTitle; //probably enough, heh?
-    char[100] tInfo; //do we need more?
+    char tTitle[40]; //probably enough, heh?
+    char tInfo[100]; //do we need more?
     char tAcceptedDate[80]; //probably change later
     int isImportant; //1 means important, 0 not
     int isInProgress; //1 means done 0 in progress. Probably won`t need this, but who knows
