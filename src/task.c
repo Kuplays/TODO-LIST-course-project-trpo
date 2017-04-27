@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include "task.h"
 
@@ -6,7 +7,7 @@ int newFile(FILE *file)
 {
     char ch = 'n';
     file = fopen("tasks.dat", "wb");
-    system("CLS");
+    printf("\e[2J\e[H");
     printf("==========NEW FILE MODE============\n\n");
     
     int idCount = 0;
@@ -20,8 +21,7 @@ int newFile(FILE *file)
         
         do {
             printf("\nIs it important? [y/n]: ");
-            scanf(" %c", &ch);
-            fflush(stdin);
+            scanf("%c%*c", &ch);;
             if (ch == 'y') {
                 task.isImportant = 1;
             } else task.isImportant = 0;
@@ -35,8 +35,7 @@ int newFile(FILE *file)
         
         fwrite(&task, sizeof(task), 1, file);
         printf("Are we done? [y/n]: ");
-        scanf(" %c", &ch);
-        fflush(stdin);
+        scanf("%c%*c", &ch);
     } while (ch != 'y');
     
     fclose(file);
@@ -44,7 +43,7 @@ int newFile(FILE *file)
 
 void printAllTasks(FILE *file)
 {
-    system("CLS");
+    printf("\e[2J\e[H");
     printf("======ALL TASKS=======\n");
     file = fopen("tasks.dat", "rb");
     fread(&task, sizeof(task), 1, file);
@@ -62,5 +61,4 @@ void printAllTasks(FILE *file)
     }
     
     fclose(file);
-    getch();
 }
