@@ -1,6 +1,7 @@
 *.o
 *~
 
+*.dat
 *.exe
 *.out
 *.app
