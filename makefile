@@ -1,14 +1,14 @@
 CC = gcc
-FLAGS = -I includes -Wall -Werror
+FLAGS = -I includes
+EXEC = bin/testRun.exe
+BUILD_DIR = build/src
 
-EXEC = testRun.exe
+all: $(BUILD_DIR)/main.o $(BUILD_DIR)/task.o
+	$(CC) $(BUILD_DIR)/main.o $(BUILD_DIR)/task.o -o $(EXEC)
 
-all: main.o
-	$(CC) main.o -o $(EXEC)
+$(BUILD_DIR)/main.o: src/main.c
+	$(CC) $(FLAGS) -c src/main.c -o $(BUILD_DIR)/main.o
 
-main.o: src/main.c
-	$(CC) $(FLAGS) -c src/main.c -o main.o
-
-.c.o:
-	$(CC) $(FLAGS) $< -o $@
+$(BUILD_DIR)/task.o: src/task.c
+	$(CC) $(FLAGS) -c src/task.c -o $(BUILD_DIR)/task.o
 
