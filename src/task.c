@@ -41,3 +41,26 @@ int newFile(FILE *file)
     
     fclose(file);
 }
+
+void printAllTasks(FILE *file)
+{
+    system("CLS");
+    printf("======ALL TASKS=======\n");
+    file = fopen("tasks.dat", "rb");
+    fread(&task, sizeof(task), 1, file);
+    
+    while (!feof(file))
+    {
+        printf("TASK ID: %d\n", task.id);
+        printf("TITLE: %s", task.tTitle);
+        printf("\nDESCRIPTION:\n%s", task.tInfo);
+        printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
+        printf("\nIMPORTANT: %d\n", task.isImportant);
+        printf("\nPROGRESS STATE: %d\n", task.isInProgress);
+        printf("\n=============\n\n");
+        fread(&task, sizeof(task), 1, file);
+    }
+    
+    fclose(file);
+    getch();
+}
