@@ -15,4 +15,5 @@ int newFile(FILE *);
 void printAllTasks(FILE *);
 void showTask(FILE *, int); //probably by id?
 int removeTask(FILE *, int);//same as above?
+int menu ();
 #endif

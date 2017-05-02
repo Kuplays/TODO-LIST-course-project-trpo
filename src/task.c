@@ -62,3 +62,12 @@ void printAllTasks(FILE *file)
     
     fclose(file);
 }
+int menu () 
+{
+    int variant;
+    printf("1. Создать новый файл \n");
+    printf("2. Вывести все задачи \n");
+    printf("3. Выход \n");
+    scanf("%d" , &variant);
+    return variant;
+}
