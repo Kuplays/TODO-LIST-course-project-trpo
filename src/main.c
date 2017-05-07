@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
   int variant = menu ();
   switch(variant) {
   case 1: 
-	newFile(file);
+	newFile(file, "wb");
 	break;
   case 2:
 	printAllTasks(file);
