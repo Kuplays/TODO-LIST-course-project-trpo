@@ -77,7 +77,7 @@ int appendTask(FILE *file)
 {
     int idCount = 0;	
     char ch = 'n';
-    file = fopen("task.dat", "ab");
+    file = fopen("tasks.dat", "ab");
     printf("\e[2J\e[H");
     printf("==========NEW FILE MODE============\n\n");
 	
