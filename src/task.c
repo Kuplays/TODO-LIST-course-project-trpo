@@ -14,7 +14,7 @@ int newFile(FILE *file)
     do
     {
         task.id = ++idCount;
-        printf("TASK TITILE: ");
+        printf("TASK TITLE: ");
         fgets(task.tTitle, 30, stdin);
         printf("TASK DESCRIPTION:");
         fgets(task.tInfo, 100, stdin);
@@ -25,7 +25,7 @@ int newFile(FILE *file)
             if (ch == 'y') {
                 task.isImportant = 1;
             } else task.isImportant = 0;
-    } while (ch != 'y' && ch != 'n');
+    	} while (ch != 'y' && ch != 'n');
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -71,3 +71,40 @@ int menu ()
     scanf("%d" , &variant);
     return variant;
 }
+
+int appendTask(FILE *file)
+{
+	int idCount = 0;	
+	char ch = 'n';
+	file = fopen("task.dat", "ab");
+	printf("\e[2J\e[H");
+	printf("==========NEW FILE MODE============\n\n");
+	
+	do {
+		task.id = ++idCount;
+		printf("TASK TITLE: ");
+		fgets(task.tTitle, 30, stdin);
+		printf("TASK DESCRIPTION:");
+        	fgets(task.tInfo, 100, stdin);
+		
+		do {
+			printf("\nIs it important? [y/n]: ");
+            		scanf("%c%*c", &ch);;
+            		if (ch == 'y') {
+                		task.isImportant = 1;
+            		} else task.isImportant = 0;
+    		} while (ch != 'y' && ch != 'n');
+
+		time_t t = time(NULL);
+		struct tm tm = *localtime(&t);
+		sprintf(task.tAcceptedDate, "%d-%d-%d %d:%d:%d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    
+		task.isInProgress = 1;
+        
+        	fwrite(&task, sizeof(task), 1, file);
+        	printf("Are we done? [y/n]: ");
+		scanf("%c%*c", &ch);
+	} while (ch != 'y');
+    
+	fclose(file);
+}		
