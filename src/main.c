@@ -14,7 +14,12 @@ int main(int argc, char *argv[])
 	printAllTasks(file);
 	break;
   case 3:
+	appendTask(file);
 	break;
+  case 4:
+	break;
+
+
     }
   return 0;
 }
