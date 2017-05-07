@@ -11,7 +11,7 @@ struct Task {
 } task;
 
 //function prototypes goes here
-int newFile(FILE *);
+int newFile(FILE *, char*);
 void printAllTasks(FILE *);
 void showTask(FILE *, int); //probably by id?
 int removeTask(FILE *, int);//same as above?
