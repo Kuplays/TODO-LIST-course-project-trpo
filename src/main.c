@@ -6,7 +6,7 @@ int main(int argc, char *argv[])
 {
   int variant;
   FILE *file;
-  do {
+  while(1) {
   	variant = menu ();
   	switch(variant) {
   	case 1: 
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 		return EXIT_SUCCESS;
 		break;
     	}
-  } while(variant != 4);
+  }
 
   return 0;
 }
