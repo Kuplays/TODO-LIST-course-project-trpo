@@ -36,6 +36,7 @@ int newFile(FILE *file, char* mode)
         fwrite(&task, sizeof(task), 1, file);
         printf("Are we done? [y/n]: ");
         scanf("%c%*c", &ch);
+	printf("\n");
     } while (ch != 'y');
     
     fclose(file);
@@ -50,7 +51,7 @@ void printAllTasks(FILE *file)
     
     while (!feof(file))
     {
-        printf("TASK ID: %d\n", task.id);
+        printf("\nTASK ID: %d\n", task.id);
         printf("TITLE: %s", task.tTitle);
         printf("\nDESCRIPTION:\n%s", task.tInfo);
         printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
@@ -65,11 +66,11 @@ void printAllTasks(FILE *file)
 int menu () 
 {
     int variant;
-    printf("1. Создать новый файл \n");
+    printf("\n1. Создать новый файл \n");
     printf("2. Вывести все задачи \n");
     printf("3. Добавление в файл \n");
     printf("4. Выход \n");
-    scanf("%d" , &variant);
+    scanf("%d%*c" , &variant);
     return variant;
 }
 
