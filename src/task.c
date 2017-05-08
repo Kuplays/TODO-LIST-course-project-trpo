@@ -3,10 +3,10 @@
 #include <time.h>
 #include "task.h"
 
-int newFile(FILE *file)
+int newFile(FILE *file, char* mode)
 {
     char ch = 'n';
-    file = fopen("tasks.dat", "wb");
+    file = fopen("tasks.dat", mode);
     printf("\e[2J\e[H");
     printf("==========NEW FILE MODE============\n\n");
     
@@ -14,7 +14,7 @@ int newFile(FILE *file)
     do
     {
         task.id = ++idCount;
-        printf("TASK TITILE: ");
+        printf("TASK TITLE: ");
         fgets(task.tTitle, 30, stdin);
         printf("TASK DESCRIPTION:");
         fgets(task.tInfo, 100, stdin);
@@ -25,7 +25,7 @@ int newFile(FILE *file)
             if (ch == 'y') {
                 task.isImportant = 1;
             } else task.isImportant = 0;
-    } while (ch != 'y' && ch != 'n');
+    	} while (ch != 'y' && ch != 'n');
 
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -36,6 +36,7 @@ int newFile(FILE *file)
         fwrite(&task, sizeof(task), 1, file);
         printf("Are we done? [y/n]: ");
         scanf("%c%*c", &ch);
+	printf("\n");
     } while (ch != 'y');
     
     fclose(file);
@@ -50,7 +51,7 @@ void printAllTasks(FILE *file)
     
     while (!feof(file))
     {
-        printf("TASK ID: %d\n", task.id);
+        printf("\nTASK ID: %d\n", task.id);
         printf("TITLE: %s", task.tTitle);
         printf("\nDESCRIPTION:\n%s", task.tInfo);
         printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
@@ -65,9 +66,16 @@ void printAllTasks(FILE *file)
 int menu () 
 {
     int variant;
-    printf("1. Создать новый файл \n");
+    printf("\n1. Создать новый файл \n");
     printf("2. Вывести все задачи \n");
-    printf("3. Выход \n");
-    scanf("%d" , &variant);
+    printf("3. Добавление в файл \n");
+    printf("4. Выход \n");
+    scanf("%d%*c" , &variant);
     return variant;
 }
+
+int appendTask(FILE *file)
+{
+    newFile(file, "ab");
+    printf("\nTask was append to file");
+}		
