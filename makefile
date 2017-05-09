@@ -19,16 +19,13 @@ $(BUILD_DIR)/task.o: src/task.c
 
 all: todo-test
 
-todo-test: $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/appendTaskTests.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o
+todo-test: $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o
 	mkdir -p bin
-	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/appendTaskTests.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o -o $(TEST_EXEC)
+	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o -o $(TEST_EXEC)
 
 $(BUILD_DIR_TEST)/main.o: test/main.c
 	mkdir -p build/test
 	$(CC) $(FLAGS) -c test/main.c -o $(BUILD_DIR_TEST)/main.o
-
-$(BUILD_DIR_TEST)/appendTaskTests.o: test/appendTaskTests.c
-	$(CC) $(FLAGS) -c test/appendTaskTests.c -o $(BUILD_DIR_TEST)/appendTaskTests.o
 
 $(BUILD_DIR_TEST)/newFileTests.o: test/newFileTests.c
 	$(CC) $(FLAGS) -c test/newFileTests.c -o $(BUILD_DIR_TEST)/newFileTests.o
