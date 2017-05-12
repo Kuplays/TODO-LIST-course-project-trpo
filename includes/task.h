@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <sys/stat.h>
 #ifndef TASK_H
 #define TASK_H
 struct Task {
@@ -17,4 +18,5 @@ void showTask(FILE *, int); //probably by id?
 int removeTask(FILE *, int);//same as above?
 int menu ();
 int appendTask(FILE *);
+int file_exist(char *);
 #endif

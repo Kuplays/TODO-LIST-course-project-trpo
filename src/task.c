@@ -78,4 +78,10 @@ int appendTask(FILE *file)
 {
     newFile(file, "ab");
     printf("\nTask was append to file");
+}
+
+int file_exist(char *filename)
+{
+  struct stat buffer;   
+  return (stat (filename, &buffer) == 0);
 }		
