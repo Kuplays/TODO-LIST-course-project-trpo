@@ -21,7 +21,7 @@ all: todo-test
 
 todo-test: $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o
 	mkdir -p bin
-	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o -o $(TEST_EXEC)
+	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/newFileTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o -o $(TEST_EXEC)
 
 $(BUILD_DIR_TEST)/main.o: test/main.c
 	mkdir -p build/test
