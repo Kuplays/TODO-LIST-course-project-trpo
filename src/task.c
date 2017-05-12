@@ -81,10 +81,10 @@ int file_exist(char *filename)
   return (stat (filename, &buffer) == 0);
 }
 
-int countID(FILE *file)
+int countID(FILE *file, char* fName)
 {
-    int id = 100;
-    file = fopen("tasks.dat", "rb");
+    int id = 0;
+    file = fopen(fName, "rb");
     while (!feof(file))
     {
         fread(&task, sizeof(task), 1, file);

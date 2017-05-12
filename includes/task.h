@@ -19,5 +19,5 @@ int removeTask(FILE *, int);//same as above?
 int menu ();
 int appendTask(FILE *);
 int file_exist(char *);
-int countID(FILE *file);
+int countID(FILE *file, char*);
 #endif

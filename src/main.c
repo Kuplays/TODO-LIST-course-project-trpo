@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
   		if (file_exist("tasks.dat"))
   		{
   			printf("EXIST!");
-  			newEntry(file, "ab", countID(file));
+  			newEntry(file, "ab", countID(file, "tasks.dat"));
   		} else {
   			printf("NEW FILE MODE!");
   			newEntry(file, "wb", 0);
