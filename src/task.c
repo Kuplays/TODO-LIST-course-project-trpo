@@ -3,14 +3,15 @@
 #include <time.h>
 #include "task.h"
 
-int newFile(FILE *file, char* mode)
+int newFile(FILE *file, char* mode, int id)
 {
     char ch = 'n';
     file = fopen("tasks.dat", mode);
+    int idCount = id;
+
     printf("\e[2J\e[H");
     printf("==========NEW FILE MODE============\n\n");
     
-    int idCount = 0;
     do
     {
         task.id = ++idCount;
@@ -74,14 +75,21 @@ int menu ()
     return variant;
 }
 
-int appendTask(FILE *file)
-{
-    newFile(file, "ab");
-    printf("\nTask was append to file");
-}
-
 int file_exist(char *filename)
 {
   struct stat buffer;   
   return (stat (filename, &buffer) == 0);
-}		
+}
+
+int countID(FILE *file)
+{
+    int id = 100;
+    file = fopen("tasks.dat", "rb");
+    while (!feof(file))
+    {
+        fread(&task, sizeof(task), 1, file);
+        id = task.id;
+    }
+    fclose(file);
+    return id;
+}

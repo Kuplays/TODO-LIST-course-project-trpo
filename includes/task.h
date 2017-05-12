@@ -12,11 +12,12 @@ struct Task {
 } task;
 
 //function prototypes goes here
-int newFile(FILE *, char*);
+int newFile(FILE *, char*, int);
 void printAllTasks(FILE *);
 void showTask(FILE *, int); //probably by id?
 int removeTask(FILE *, int);//same as above?
 int menu ();
 int appendTask(FILE *);
 int file_exist(char *);
+int countID(FILE *file);
 #endif
