@@ -6,7 +6,7 @@
 int newFileTest(FILE *file)
 {
     char ch = 'n';
-    file = fopen("tasks.dat", "wb");
+    file = fopen("tasksTest.dat", "wb");
     int idCount = 0;
     task.id = ++idCount;
     strcpy(task.tTitle, "Test Title");
