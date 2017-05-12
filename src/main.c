@@ -13,19 +13,16 @@ int main(int argc, char *argv[])
   		if (file_exist("tasks.dat"))
   		{
   			printf("EXIST!");
-  			newFile(file, "ab", countID(file));
+  			newEntry(file, "ab", countID(file));
   		} else {
   			printf("NEW FILE MODE!");
-  			newFile(file, "wb", 0);
+  			newEntry(file, "wb", 0);
   		}
 		break;
   	case 2:
 		printAllTasks(file);
 		break;
   	case 3:
-		//appendTask(file);
-		break;
-  	case 4:
 		return EXIT_SUCCESS;
 		break;
     	}

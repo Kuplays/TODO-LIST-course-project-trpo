@@ -3,7 +3,7 @@
 #include <time.h>
 #include "task.h"
 
-int newFile(FILE *file, char* mode, int id)
+int newEntry(FILE *file, char* mode, int id)
 {
     char ch = 'n';
     file = fopen("tasks.dat", mode);
