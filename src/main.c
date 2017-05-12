@@ -10,7 +10,14 @@ int main(int argc, char *argv[])
   	variant = menu ();
   	switch(variant) {
   	case 1: 
-		newFile(file, "wb");
+  		if (file_exist("tasks.dat"))
+  		{
+  			printf("EXIST!");
+  			appendTask(file);
+  		} else {
+  			printf("NEW FILE MODE!");
+  			newFile(file, "wb");
+  		}
 		break;
   	case 2:
 		printAllTasks(file);
