@@ -22,7 +22,10 @@ int main(int argc, char *argv[])
   	case 2:
 		printAllTasks(file);
 		break;
-  	case 3:
+        case 3:
+		printImportantTasks(file);
+		break;
+  	case 4:
 		return EXIT_SUCCESS;
 		break;
     	}
