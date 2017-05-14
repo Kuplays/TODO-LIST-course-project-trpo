@@ -69,7 +69,7 @@ int menu ()
     int variant;
     printf("\n1. Создать новый файл \n");
     printf("2. Вывести все задачи \n");
-    printf("3. Добавление в файл \n");
+    printf("3. Вывести важные задачи \n");
     printf("4. Выход \n");
     scanf("%d%*c" , &variant);
     return variant;
