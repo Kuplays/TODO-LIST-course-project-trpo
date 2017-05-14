@@ -93,3 +93,32 @@ int countID(FILE *file, char* fName)
     fclose(file);
     return id;
 }
+
+void printImportantTasks(FILE *file)
+{
+file = fopen("tasks.dat", "rb");
+fread(&task, sizeof(task), 1, file);
+
+printf("\e[2J\e[H");
+printf("=======IMPORTANT TASKS MODE===============\n\n");
+
+while (!feof(file))
+{
+if (task.isImportant)
+{
+printf("\nTASK ID: %d\n", task.id);
+printf("TITLE: %s", task.tTitle);
+printf("\nDESCRIPTION:\n%s", task.tInfo);
+printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
+printf("\nIMPORTANT: %d\n", task.isImportant);
+printf("\nPROGRESS STATE: %d\n", task.isInProgress);
+printf("\n=============\n\n");
+
+}
+fread(&task, sizeof(task), 1, file);
+}
+
+fclose(file);
+printf("\nEnter any key to continue...");
+getchar();
+}
