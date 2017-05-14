@@ -20,4 +20,5 @@ int menu ();
 int appendTask(FILE *);
 int file_exist(char *);
 int countID(FILE *file, char*);
+void printImportantTasks(FILE *file);
 #endif
