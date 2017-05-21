@@ -14,6 +14,7 @@ struct Task {
 //function prototypes goes here
 struct Task composeTask(int, char*, char*, int); 
 void gatherInput(struct Task*);
+void writeToFile(struct Task);
 int newEntry(FILE *, char*, int);
 int getSize(char*);
 int readFromFile(struct Task*, char*);
@@ -23,6 +24,6 @@ int removeTask(FILE *, int);//same as above?
 int menu ();
 int appendTask(FILE *);
 int file_exist(char *);
-int countID(FILE *file, char*);
+int countID(char*);
 void printImportantTasks(FILE *file);
 #endif

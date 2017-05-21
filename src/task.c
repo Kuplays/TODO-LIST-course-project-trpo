@@ -19,7 +19,6 @@ struct Task composeTask(int id, char* title, char *descr, int important) {
 }
 
 void gatherInput(struct Task* t) {
-    FILE* f;
     char ch = 'n';
     int id, important;
     char title[30], descr[100]; 
@@ -41,10 +40,24 @@ void gatherInput(struct Task* t) {
     if (file_exist("tasks.dat") == 0) {
         id = 1;
     } else {
-        id = countID(f, "tasks.dat");
+        id = countID("tasks.dat") + 1;
     }
 
     (*t) = composeTask(id, title, descr, important);
+}
+
+void writeToFile(struct Task t) {
+    FILE *file;
+
+    if (file_exist("tasks.dat")) {
+        file = fopen("tasks.dat", "ab");
+    } else {
+        file = fopen("tasks.dat", "wb");
+    }
+
+    fwrite(&t, sizeof(t), 1, file);
+    fclose(file);
+
 }
 
 int newEntry(FILE *file, char* mode, int id)
@@ -160,10 +173,11 @@ int file_exist(char *filename)
   return (stat (filename, &buffer) == 0);
 }
 
-int countID(FILE *file, char* fName)
+int countID(char* fName)
 {
+    FILE *file;
     int id = 0;
-    file = fopen(fName, "rb");
+    file = fopen(fName, "r");
     while (!feof(file))
     {
         fread(&task, sizeof(task), 1, file);
