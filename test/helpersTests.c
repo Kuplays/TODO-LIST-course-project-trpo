@@ -15,8 +15,7 @@ CTEST(FILE_EXIST_FUNCTION, fileExistsFAIL)
 
 CTEST(COUNT_ID_FUNCTION, tests_dat_return_1_OK)
 {
-	FILE *file;
-	int result = countID(file, "tasksTest.dat");
+	int result = countID("tasksTest.dat");
 	ASSERT_EQUAL(1, result);
 }
 
@@ -61,6 +60,4 @@ CTEST(GET_SIZE_TESTS, elementsCount_10_OK) {
 	fclose(f);
 	int result = getSize("testGetSize.dat");
 	ASSERT_EQUAL(10, result);
-
-
 }
