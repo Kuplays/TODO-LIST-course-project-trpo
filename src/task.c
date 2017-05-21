@@ -18,6 +18,35 @@ struct Task composeTask(int id, char* title, char *descr, int important) {
     return newTask;
 }
 
+void gatherInput(struct Task* t) {
+    FILE* f;
+    char ch = 'n';
+    int id, important;
+    char title[30], descr[100]; 
+    printf("\033c");
+    printf("=====NEW ENTRY======\n\n");
+    printf("ENTER TITLE: ");
+    fgets(title, 30, stdin);
+    printf("ENTER DESCRIPTION: ");
+    fgets(descr, 100, stdin);
+
+    do {
+        printf("\nIs it important? [y/n]: ");
+        scanf("%c%*c", &ch);;
+        if (ch == 'y') {
+            important = 1;
+        } else important = 0;
+    } while (ch != 'y' && ch != 'n');
+
+    if (file_exist("tasks.dat") == 0) {
+        id = 1;
+    } else {
+        id = countID(f, "tasks.dat");
+    }
+
+    (*t) = composeTask(id, title, descr, important);
+}
+
 int newEntry(FILE *file, char* mode, int id)
 {
     char ch = 'n';

@@ -13,6 +13,7 @@ struct Task {
 
 //function prototypes goes here
 struct Task composeTask(int, char*, char*, int); 
+void gatherInput(struct Task*);
 int newEntry(FILE *, char*, int);
 int getSize(char*);
 int readFromFile(struct Task*, char*);
