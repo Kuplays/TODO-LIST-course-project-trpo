@@ -43,6 +43,24 @@ int newEntry(FILE *file, char* mode, int id)
     fclose(file);
 }
 
+int readFromFile(struct Task* t, char* fName) {
+    if (file_exist(fName) == 0) {
+        return -1;
+    }
+
+    int i = 0;
+    FILE *f = fopen(fName, "rb");
+    fread(&task, sizeof(task), 1, f);
+    while(!feof(f)) {
+        t[i] = task;
+        i++;
+        fread(&task, sizeof(task), 1, f);
+    }
+
+    fclose(f);
+    return 0;
+}
+
 void printAllTasks(FILE *file)
 {
     printf("\e[2J\e[H");
