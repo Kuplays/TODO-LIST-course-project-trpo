@@ -19,3 +19,15 @@ CTEST(COUNT_ID_FUNCTION, tests_dat_return_1_OK)
 	int result = countID(file, "tasksTest.dat");
 	ASSERT_EQUAL(1, result);
 }
+
+CTEST(READ_FROM_FILE_TESTS, fileReadIntoArrayOK) {
+	struct Task t[10];
+	int result = readFromFile(t, "tasks.dat");
+	ASSERT_EQUAL(0, result);
+}
+
+CTEST(READ_FROM_FILE_TESTS, fileNotPresentOK) {
+	struct Task t[10];
+	int result = readFromFile(t, "dummyFile.dat");
+	ASSERT_EQUAL(-1, result);
+}
