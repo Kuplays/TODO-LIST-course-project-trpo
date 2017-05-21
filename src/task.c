@@ -61,6 +61,23 @@ int readFromFile(struct Task* t, char* fName) {
     return 0;
 }
 
+int getSize(char* fName) {
+    if (file_exist(fName) == 0) {
+        return -1;
+    }
+
+    int size = 0;
+    FILE *f = fopen(fName, "rb");
+    fread(&task, sizeof(task), 1, f);
+    while(!feof(f)) {
+        ++size;
+        fread(&task, sizeof(task), 1, f);       
+    }
+
+    fclose(f);
+    return size;
+}
+
 void printAllTasks(FILE *file)
 {
     printf("\e[2J\e[H");

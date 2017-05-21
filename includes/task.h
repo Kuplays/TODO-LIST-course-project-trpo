@@ -13,6 +13,7 @@ struct Task {
 
 //function prototypes goes here
 int newEntry(FILE *, char*, int);
+int getSize(char*);
 int readFromFile(struct Task*, char*);
 void printAllTasks(FILE *);
 void showTask(FILE *, int); //probably by id?
