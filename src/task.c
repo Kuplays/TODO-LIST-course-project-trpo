@@ -1,7 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "task.h"
+
+struct Task composeTask(int id, char* title, char *descr, int important) {
+    struct Task newTask;
+    newTask.id = id;
+    strcpy(newTask.tTitle, title);
+    strcpy(newTask.tInfo, descr);
+    newTask.isImportant = important;
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    sprintf(newTask.tAcceptedDate, "%d-%d-%d %d:%d:%d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+    return newTask;
+}
 
 int newEntry(FILE *file, char* mode, int id)
 {
