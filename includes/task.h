@@ -15,7 +15,6 @@ struct Task {
 struct Task composeTask(int, char*, char*, int); 
 void gatherInput(struct Task*);
 void writeToFile(struct Task);
-int newEntry(FILE *, char*, int);
 int getSize(char*);
 int readFromFile(struct Task*, char*);
 void printAllTasks(FILE *);

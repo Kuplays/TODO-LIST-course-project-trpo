@@ -60,46 +60,6 @@ void writeToFile(struct Task t) {
 
 }
 
-int newEntry(FILE *file, char* mode, int id)
-{
-    char ch = 'n';
-    file = fopen("tasks.dat", mode);
-    int idCount = id;
-
-    printf("\e[2J\e[H");
-    printf("==========NEW FILE MODE============\n\n");
-    
-    do
-    {
-        task.id = ++idCount;
-        printf("TASK TITLE: ");
-        fgets(task.tTitle, 30, stdin);
-        printf("TASK DESCRIPTION:");
-        fgets(task.tInfo, 100, stdin);
-        
-        do {
-            printf("\nIs it important? [y/n]: ");
-            scanf("%c%*c", &ch);;
-            if (ch == 'y') {
-                task.isImportant = 1;
-            } else task.isImportant = 0;
-    	} while (ch != 'y' && ch != 'n');
-
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    sprintf(task.tAcceptedDate, "%d-%d-%d %d:%d:%d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
-    
-    task.isInProgress = 1;
-        
-        fwrite(&task, sizeof(task), 1, file);
-        printf("Are we done? [y/n]: ");
-        scanf("%c%*c", &ch);
-	printf("\n");
-    } while (ch != 'y');
-    
-    fclose(file);
-}
-
 int readFromFile(struct Task* t, char* fName) {
     if (file_exist(fName) == 0) {
         return -1;
