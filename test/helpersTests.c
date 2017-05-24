@@ -21,7 +21,8 @@ CTEST(COUNT_ID_FUNCTION, tests_dat_return_1_OK)
 
 CTEST(READ_FROM_FILE_TESTS, fileReadIntoArrayOK) {
 	struct Task t[10];
-	int result = readFromFile(t, "tasks.dat");
+	FILE *f = fopen("TEST.dat", "w");
+	int result = readFromFile(t, "TEST.dat");
 	ASSERT_EQUAL(0, result);
 }
 
