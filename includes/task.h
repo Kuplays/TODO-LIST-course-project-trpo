@@ -12,13 +12,14 @@ struct Task {
 } task;
 
 //function prototypes goes here
-int newEntry(FILE *, char*, int);
+struct Task composeTask(int, char*, char*, int); 
+void gatherInput(struct Task*);
+void writeToFile(struct Task);
+int getSize(char*);
+int readFromFile(struct Task*, char*);
 void printAllTasks(FILE *);
-void showTask(FILE *, int); //probably by id?
-int removeTask(FILE *, int);//same as above?
 int menu ();
-int appendTask(FILE *);
 int file_exist(char *);
-int countID(FILE *file, char*);
+int countID(char*);
 void printImportantTasks(FILE *file);
 #endif
