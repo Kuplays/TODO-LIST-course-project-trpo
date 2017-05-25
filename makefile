@@ -19,9 +19,9 @@ $(BUILD_DIR)/task.o: src/task.c
 
 all: todo-test
 
-todo-test: $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/taskRelatedTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o
+todo-test: $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/taskRelatedTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o
 	mkdir -p bin
-	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/taskRelatedTests.o $(BUILD_DIR_TEST)/printAllTasksTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o -o $(TEST_EXEC)
+	$(CC) $(BUILD_DIR_TEST)/main.o $(BUILD_DIR_TEST)/taskRelatedTests.o $(BUILD_DIR)/task.o $(BUILD_DIR_TEST)/helpersTests.o -o $(TEST_EXEC)
 
 $(BUILD_DIR_TEST)/main.o: test/main.c
 	mkdir -p build/test
@@ -29,9 +29,6 @@ $(BUILD_DIR_TEST)/main.o: test/main.c
 
 $(BUILD_DIR_TEST)/taskRelatedTests.o: test/taskRelatedTests.c
 	$(CC) $(FLAGS) -c test/taskRelatedTests.c -o $(BUILD_DIR_TEST)/taskRelatedTests.o
-
-$(BUILD_DIR_TEST)/printAllTasksTests.o: test/printAllTasksTests.c
-	$(CC) $(FLAGS) -c test/printAllTasksTests.c -o $(BUILD_DIR_TEST)/printAllTasksTests.o
 
 $(BUILD_DIR_TEST)/helpersTests.o: test/helpersTests.c
 	$(CC) $(FLAGS) -c test/helpersTests.c -o $(BUILD_DIR_TEST)/helpersTests.o

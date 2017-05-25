@@ -68,6 +68,7 @@ int readFromFile(struct Task* t, char* fName) {
     int i = 0;
     FILE *f = fopen(fName, "rb");
     fread(&task, sizeof(task), 1, f);
+
     while(!feof(f)) {
         t[i] = task;
         i++;
@@ -95,42 +96,52 @@ int getSize(char* fName) {
     return size;
 }
 
-void printAllTasks(FILE *file)
-{
-    printf("\e[2J\e[H");
-    printf("======ALL TASKS=======\n");
-    file = fopen("tasks.dat", "rb");
-    fread(&task, sizeof(task), 1, file);
-    
-    while (!feof(file))
-    {
-        printf("\nTASK ID: %d\n", task.id);
-        printf("TITLE: %s", task.tTitle);
-        printf("\nDESCRIPTION:\n%s", task.tInfo);
-        printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
-        printf("\nIMPORTANT: %d\n", task.isImportant);
-        printf("\nPROGRESS STATE: %d\n", task.isInProgress);
-        printf("\n=============\n\n");
-        fread(&task, sizeof(task), 1, file);
+void printAllTasks() {
+    struct Task *tasks = getData("tasks.dat");
+
+    int i;
+    int size = getSize("tasks.dat");
+    for (i = 0; i < size; i++) {
+        printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+            tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+        printf("\n==========================\n");
     }
-    
-    fclose(file);
+
+    printf("\nPRESS ENTER TO CONTINUE...");
+    getchar();
 }
-int menu () 
-{
-    int variant;
-    printf("\n1. Создать новый файл \n");
-    printf("2. Вывести все задачи \n");
-    printf("3. Вывести важные задачи \n");
-    printf("4. Выход \n");
-    scanf("%d%*c" , &variant);
-    return variant;
+
+void showMenu() {
+    printf("\033c");
+    printf("TO-DO LIST\n");
+    printf("\n[1] NEW ENTRY");
+    printf("\n[2] SHOW ALL ENTRIES");
+    printf("\n[3] SHOW IMPORTANT ENTRIES");
+    printf("\n[4] TERMINATE\n");
+}
+
+struct Task* getData(char* fName) {
+    struct Task *tasks;
+
+    if (getSize(fName) == 0) {
+        tasks = malloc(sizeof(struct Task) * 1);
+        tasks[0].id = -1;
+
+        return tasks;
+    }
+
+    int size = getSize(fName);
+    tasks = malloc(sizeof(struct Task) * size);
+    readFromFile(tasks, fName);
+
+    return tasks;
 }
 
 int file_exist(char *filename)
 {
-  struct stat buffer;   
-  return (stat (filename, &buffer) == 0);
+    struct stat buffer; 
+
+    return (stat (filename, &buffer) == 0);
 }
 
 int countID(char* fName)
@@ -138,12 +149,15 @@ int countID(char* fName)
     FILE *file;
     int id = 0;
     file = fopen(fName, "r");
+
     while (!feof(file))
     {
         fread(&task, sizeof(task), 1, file);
         id = task.id;
     }
+
     fclose(file);
+
     return id;
 }
 
@@ -164,7 +178,7 @@ printf("TITLE: %s", task.tTitle);
 printf("\nDESCRIPTION:\n%s", task.tInfo);
 printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
 printf("\nIMPORTANT: %d\n", task.isImportant);
-printf("\nPROGRESS STATE: %d\n", task.isInProgress);
+//printf("\nPROGRESS STATE: %d\n", task.isInProgress);
 printf("\n=============\n\n");
 
 }

@@ -15,10 +15,13 @@ struct Task {
 struct Task composeTask(int, char*, char*, int); 
 void gatherInput(struct Task*);
 void writeToFile(struct Task);
+
 int getSize(char*);
 int readFromFile(struct Task*, char*);
-void printAllTasks(FILE *);
-int menu ();
+struct Task* getData(char*);
+
+void printAllTasks();
+void showMenu();
 int file_exist(char *);
 int countID(char*);
 void printImportantTasks(FILE *file);
