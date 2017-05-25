@@ -85,8 +85,9 @@ CTEST(GETDATA_TESTS, EmptyArrayOK) {
 CTEST(GETDATA_TESTS, threeElementsOK) {
 	FILE *f = fopen("getDataTest_Three_Elements.dat", "wb");
 	struct Task tsk;
+	int i;
 
-	for (int i = 0; i < 3; i++) {
+	for (i = 0; i < 3; i++) {
 		tsk = composeTask(i, "TITLE", "DESCR", 1);
 		fwrite(&tsk, sizeof(tsk), 1, f);
 	}
@@ -100,8 +101,9 @@ CTEST(GETDATA_TESTS, threeElementsOK) {
 CTEST(GETDATA_TESTS, 999_Elements_OK) {
 	FILE *f = fopen("getDataTest_999_Elements.dat", "wb");
 	struct Task tsk;
+	int i;
 
-	for (int i = 0; i < 999; i++) {
+	for (i = 0; i < 999; i++) {
 		tsk = composeTask(i, "TITLE", "DESCR", 1);
 		fwrite(&tsk, sizeof(tsk), 1, f);
 	}
