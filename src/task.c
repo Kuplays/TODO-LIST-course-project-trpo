@@ -68,6 +68,7 @@ int readFromFile(struct Task* t, char* fName) {
     int i = 0;
     FILE *f = fopen(fName, "rb");
     fread(&task, sizeof(task), 1, f);
+
     while(!feof(f)) {
         t[i] = task;
         i++;
@@ -96,8 +97,8 @@ int getSize(char* fName) {
 }
 
 void printAllTasks() {
-    char ch = 178;
     struct Task *tasks = getData("tasks.dat");
+
     for (int i = 0; i < getSize("tasks.dat"); i++) {
         printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
             tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
@@ -136,8 +137,9 @@ struct Task* getData(char* fName) {
 
 int file_exist(char *filename)
 {
-  struct stat buffer;   
-  return (stat (filename, &buffer) == 0);
+    struct stat buffer; 
+      
+    return (stat (filename, &buffer) == 0);
 }
 
 int countID(char* fName)
@@ -145,12 +147,15 @@ int countID(char* fName)
     FILE *file;
     int id = 0;
     file = fopen(fName, "r");
+
     while (!feof(file))
     {
         fread(&task, sizeof(task), 1, file);
         id = task.id;
     }
+
     fclose(file);
+
     return id;
 }
 
@@ -171,7 +176,7 @@ printf("TITLE: %s", task.tTitle);
 printf("\nDESCRIPTION:\n%s", task.tInfo);
 printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
 printf("\nIMPORTANT: %d\n", task.isImportant);
-printf("\nPROGRESS STATE: %d\n", task.isInProgress);
+//printf("\nPROGRESS STATE: %d\n", task.isInProgress);
 printf("\n=============\n\n");
 
 }
