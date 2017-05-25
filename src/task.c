@@ -107,6 +107,23 @@ void showMenu() {
     printf("\n[4] TERMINATE\n");
 }
 
+struct Task* getData(char* fName) {
+    struct Task *tasks;
+
+    if (getSize(fName) == 0) {
+        tasks = malloc(sizeof(struct Task) * 1);
+        tasks[0].id = -1;
+
+        return tasks;
+    }
+
+    int size = getSize(fName);
+    tasks = malloc(sizeof(struct Task) * size);
+    readFromFile(tasks, fName);
+
+    return tasks;
+}
+
 int file_exist(char *filename)
 {
   struct stat buffer;   
