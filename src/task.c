@@ -99,7 +99,9 @@ int getSize(char* fName) {
 void printAllTasks() {
     struct Task *tasks = getData("tasks.dat");
 
-    for (int i = 0; i < getSize("tasks.dat"); i++) {
+    int i;
+    int size = getSize("tasks.dat");
+    for (i = 0; i < size; i++) {
         printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
             tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
         printf("\n==========================\n");
@@ -138,7 +140,7 @@ struct Task* getData(char* fName) {
 int file_exist(char *filename)
 {
     struct stat buffer; 
-      
+
     return (stat (filename, &buffer) == 0);
 }
 
