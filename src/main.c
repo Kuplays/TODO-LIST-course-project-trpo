@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 			break;
 			case 2:
 			printAllTasks();
+			break;
 			case 4:
 			printf("\033c");
 			return EXIT_SUCCESS;
