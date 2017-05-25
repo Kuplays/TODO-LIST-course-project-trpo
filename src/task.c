@@ -116,15 +116,13 @@ void printAllTasks(FILE *file)
     
     fclose(file);
 }
-int menu () 
-{
-    int variant;
-    printf("\n1. Создать новый файл \n");
-    printf("2. Вывести все задачи \n");
-    printf("3. Вывести важные задачи \n");
-    printf("4. Выход \n");
-    scanf("%d%*c" , &variant);
-    return variant;
+void showMenu() {
+    printf("\033c");
+    printf("TO-DO LIST\n");
+    printf("\n[1] NEW ENTRY");
+    printf("\n[2] SHOW ALL ENTRIES");
+    printf("\n[3] SHOW IMPORTANT ENTRIES");
+    printf("\n[4] TERMINATE\n");
 }
 
 int file_exist(char *filename)

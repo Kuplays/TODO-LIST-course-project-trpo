@@ -18,7 +18,7 @@ void writeToFile(struct Task);
 int getSize(char*);
 int readFromFile(struct Task*, char*);
 void printAllTasks(FILE *);
-int menu ();
+void showMenu();
 int file_exist(char *);
 int countID(char*);
 void printImportantTasks(FILE *file);
