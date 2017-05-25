@@ -95,27 +95,9 @@ int getSize(char* fName) {
     return size;
 }
 
-void printAllTasks(FILE *file)
-{
-    printf("\e[2J\e[H");
-    printf("======ALL TASKS=======\n");
-    file = fopen("tasks.dat", "rb");
-    fread(&task, sizeof(task), 1, file);
-    
-    while (!feof(file))
-    {
-        printf("\nTASK ID: %d\n", task.id);
-        printf("TITLE: %s", task.tTitle);
-        printf("\nDESCRIPTION:\n%s", task.tInfo);
-        printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
-        printf("\nIMPORTANT: %d\n", task.isImportant);
-        printf("\nPROGRESS STATE: %d\n", task.isInProgress);
-        printf("\n=============\n\n");
-        fread(&task, sizeof(task), 1, file);
-    }
-    
-    fclose(file);
+void printAllTasks() {
 }
+
 void showMenu() {
     printf("\033c");
     printf("TO-DO LIST\n");
