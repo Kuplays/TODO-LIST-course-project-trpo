@@ -78,7 +78,7 @@ CTEST(GET_SIZE_TESTS, elementsCount_10_OK) {
 
 CTEST(GETDATA_TESTS, EmptyArrayOK) {
 	FILE *f = fopen("getDataTest_Empty.dat", "wb");
-	struct Task *tasks = getData("getDataTest.dat");
+	struct Task *tasks = getData("getDataTest_Empty.dat");
 	ASSERT_EQUAL(-1, tasks[0].id);
 }
 
