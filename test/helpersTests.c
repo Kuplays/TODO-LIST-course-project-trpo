@@ -3,7 +3,9 @@
 
 CTEST(FILE_EXIST_FUNCTION, fileExistsOK)
 {
+	FILE* f = fopen("tasksTest.dat", "wb");
 	int result = file_exist("tasksTest.dat");
+	fclose(f);
 	ASSERT_EQUAL(1, result);
 }
 
@@ -15,7 +17,11 @@ CTEST(FILE_EXIST_FUNCTION, fileExistsFAIL)
 
 CTEST(COUNT_ID_FUNCTION, tests_dat_return_1_OK)
 {
+	FILE* f = fopen("tastsTest.dat", "wb");
+	task.id = 1;
+	fwrite(&task, sizeof(task), 1, f);
 	int result = countID("tasksTest.dat");
+	fclose(f);
 	ASSERT_EQUAL(1, result);
 }
 
