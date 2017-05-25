@@ -43,6 +43,13 @@ CTEST(GET_SIZE_TESTS, fileNotPresentOK) {
 	ASSERT_EQUAL(-1, result);
 }
 
+CTEST(GET_SIZE_TESTS, elementsCount_0_OK) {
+	FILE *f = fopen("testGetSize.dat", "wb");
+	fclose(f);
+	int result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(0, result);
+}
+
 CTEST(GET_SIZE_TESTS, elementsCount_2_OK) {
 	FILE *f = fopen("testGetSize.dat", "wb");
 	task.id = 100;
@@ -67,4 +74,40 @@ CTEST(GET_SIZE_TESTS, elementsCount_10_OK) {
 	fclose(f);
 	int result = getSize("testGetSize.dat");
 	ASSERT_EQUAL(10, result);
+}
+
+CTEST(GETDATA_TESTS, EmptyArrayOK) {
+	FILE *f = fopen("getDataTest_Empty.dat", "wb");
+	struct Task *tasks = getData("getDataTest.dat");
+	ASSERT_EQUAL(-1, tasks[0].id);
+}
+
+CTEST(GETDATA_TESTS, threeElementsOK) {
+	FILE *f = fopen("getDataTest_Three_Elements.dat", "wb");
+	struct Task tsk;
+
+	for (int i = 0; i < 3; i++) {
+		tsk = composeTask(i, "TITLE", "DESCR", 1);
+		fwrite(&tsk, sizeof(tsk), 1, f);
+	}
+
+	fclose(f);
+	struct Task *tasks = getData("getDataTest_Three_Elements.dat");
+
+	ASSERT_EQUAL(2, tasks[2].id);
+}
+
+CTEST(GETDATA_TESTS, 999_Elements_OK) {
+	FILE *f = fopen("getDataTest_999_Elements.dat", "wb");
+	struct Task tsk;
+
+	for (int i = 0; i < 999; i++) {
+		tsk = composeTask(i, "TITLE", "DESCR", 1);
+		fwrite(&tsk, sizeof(tsk), 1, f);
+	}
+
+	fclose(f);
+	struct Task *tasks = getData("getDataTest_999_Elements.dat");
+
+	ASSERT_EQUAL(998, tasks[998].id);
 }
