@@ -96,6 +96,14 @@ int getSize(char* fName) {
 }
 
 void printAllTasks() {
+    struct Task *tasks = getData("tasks.dat");
+    for (int i = 0; i < getSize("tasks.dat"); i++) {
+        printf("ID: %d\nTITLE: %s\nDESCRIPTION: %s\nDATE ACCEPTED: %s\n",
+            tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+    }
+
+    printf("\nPRESS ENTER TO CONTINUE...");
+    getchar();
 }
 
 void showMenu() {
