@@ -96,16 +96,38 @@ int getSize(char* fName) {
     return size;
 }
 
+void composeIndexArray(int* index, int indSize, struct Task* t) {
+    int temp, i, j;
+
+    for (i = 0; i < indSize; i++) index[i] = i;
+
+    for (i = 1; i < indSize; i++) {
+        temp = index[i];
+        j = i - 1;
+
+        while(j >= 0 && t[temp].id > t[j].id) {
+            index[j + 1] = index[j];
+            j--;
+        }
+        index[j + 1] = temp;
+    }
+}
+
+
 void printAllTasks() {
     struct Task *tasks = getData("tasks.dat");
 
     int i;
     int size = getSize("tasks.dat");
 
+    int indexArr[size];
+
+    composeIndexArray(indexArr, size, tasks);
+
     printf("\033c");
     for (i = 0; i < size; i++) {
         printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
-            tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+            tasks[indexArr[i]].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
         printf("\n==========================\n");
     }
 
