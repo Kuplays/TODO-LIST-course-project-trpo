@@ -114,7 +114,7 @@ void composeIndexArray(int* index, int indSize, struct Task* t) {
 }
 
 
-void printAllTasks() {
+void printAllTasks(int descMode) {
     struct Task *tasks = getData("tasks.dat");
 
     int i;
@@ -125,10 +125,19 @@ void printAllTasks() {
     composeIndexArray(indexArr, size, tasks);
 
     printf("\033c");
-    for (i = 0; i < size; i++) {
-        printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
-            tasks[indexArr[i]].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
-        printf("\n==========================\n");
+
+    if (descMode == 1) {
+        for (i = 0; i < size; i++) {
+            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
+            printf("\n==========================\n");
+        }
+    } else {
+        for (i = 0; i < size; i++) {
+            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+            printf("\n==========================\n");
+        }
     }
 
     printf("\nPRESS ENTER TO CONTINUE...");
@@ -140,8 +149,9 @@ void showMenu() {
     printf("TO-DO LIST\n");
     printf("\n[1] NEW ENTRY");
     printf("\n[2] SHOW ALL ENTRIES");
-    printf("\n[3] SHOW IMPORTANT ENTRIES");
-    printf("\n[4] TERMINATE\n");
+    printf("\n[3] SHOW ALL ENTRIES BY DATE");
+    printf("\n[4] SHOW IMPORTANT ENTRIES");
+    printf("\n[5] TERMINATE\n");
 }
 
 struct Task* getData(char* fName) {
