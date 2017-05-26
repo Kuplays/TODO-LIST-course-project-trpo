@@ -101,6 +101,8 @@ void printAllTasks() {
 
     int i;
     int size = getSize("tasks.dat");
+
+    printf("\033c");
     for (i = 0; i < size; i++) {
         printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
             tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
