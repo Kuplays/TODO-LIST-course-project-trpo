@@ -113,3 +113,67 @@ CTEST(GETDATA_TESTS, 999_Elements_OK) {
 
 	ASSERT_EQUAL(998, tasks[998].id);
 }
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, firstBiggerThanLastOK) {
+	struct Task tasks[3];
+	int indexArr[3];
+	tasks[0].id = 0;
+	tasks[1].id = 1;
+	tasks[2].id = 2;
+
+	composeIndexArray(indexArr, 3, tasks);
+	int result;
+	if (indexArr[0] > indexArr[2]) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, middlePointIsLesserThanFirstOK) {
+	struct Task tasks[100];
+	int indexArr[100];
+	int i;
+
+	for (i = 0; i < 100; i++) {
+		tasks[i].id = i;
+	}
+
+	composeIndexArray(indexArr, 100, tasks);
+	int result;
+	if (indexArr[50] < indexArr[0]) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, indexComposingBehaviorOK) {
+	struct Task tasks[3];
+	int descArr[3];
+	descArr[0] = 2;
+	descArr[1] = 1;
+	descArr[2] = 0;
+
+	int indexArr[3];
+	tasks[0].id = 0;
+	tasks[1].id = 1;
+	tasks[2].id = 2;
+
+	composeIndexArray(indexArr, 3, tasks);
+
+	int i, result;
+	for(i = 0; i < 3; i++) {
+		if (descArr[i] != indexArr[i]) {
+			result = 0;
+		} else {
+			result = 1;
+		}
+	}
+
+	ASSERT_EQUAL(1, result);
+}

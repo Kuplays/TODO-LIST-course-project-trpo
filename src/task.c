@@ -96,15 +96,48 @@ int getSize(char* fName) {
     return size;
 }
 
-void printAllTasks() {
+void composeIndexArray(int* index, int indSize, struct Task* t) {
+    int temp, i, j;
+
+    for (i = 0; i < indSize; i++) index[i] = i;
+
+    for (i = 1; i < indSize; i++) {
+        temp = index[i];
+        j = i - 1;
+
+        while(j >= 0 && t[temp].id > t[j].id) {
+            index[j + 1] = index[j];
+            j--;
+        }
+        index[j + 1] = temp;
+    }
+}
+
+
+void printAllTasks(int descMode) {
     struct Task *tasks = getData("tasks.dat");
 
     int i;
     int size = getSize("tasks.dat");
-    for (i = 0; i < size; i++) {
-        printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
-            tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
-        printf("\n==========================\n");
+
+    int indexArr[size];
+
+    composeIndexArray(indexArr, size, tasks);
+
+    printf("\033c");
+
+    if (descMode == 1) {
+        for (i = 0; i < size; i++) {
+            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
+            printf("\n==========================\n");
+        }
+    } else {
+        for (i = 0; i < size; i++) {
+            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+            printf("\n==========================\n");
+        }
     }
 
     printf("\nPRESS ENTER TO CONTINUE...");
@@ -116,8 +149,9 @@ void showMenu() {
     printf("TO-DO LIST\n");
     printf("\n[1] NEW ENTRY");
     printf("\n[2] SHOW ALL ENTRIES");
-    printf("\n[3] SHOW IMPORTANT ENTRIES");
-    printf("\n[4] TERMINATE\n");
+    printf("\n[3] SHOW ALL ENTRIES BY DATE");
+    printf("\n[4] SHOW IMPORTANT ENTRIES");
+    printf("\n[5] TERMINATE\n");
 }
 
 struct Task* getData(char* fName) {

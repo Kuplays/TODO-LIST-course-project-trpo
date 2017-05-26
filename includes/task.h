@@ -21,6 +21,7 @@ int readFromFile(struct Task*, char*);
 struct Task* getData(char*);
 
 void printAllTasks();
+void composeIndexArray(int*, int, struct Task*);
 void showMenu();
 int file_exist(char *);
 int countID(char*);
