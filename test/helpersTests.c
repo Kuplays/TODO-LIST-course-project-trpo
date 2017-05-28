@@ -17,12 +17,84 @@ CTEST(FILE_EXIST_FUNCTION, fileExistsFAIL)
 
 CTEST(COUNT_ID_FUNCTION, tests_dat_return_1_OK)
 {
-	FILE* f = fopen("tastsTest.dat", "wb");
+	FILE* f = fopen("tasksTest.dat", "wb");
 	task.id = 1;
 	fwrite(&task, sizeof(task), 1, f);
 	int result = countID("tasksTest.dat");
 	fclose(f);
 	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COUNT_ID_FUNCTION, returnLastIDByMath)
+{
+	FILE* f = fopen("tasksTest.dat", "wb");
+	task.id = 24 * 2;
+	fwrite(&task, sizeof(task), 1, f);
+	int result = countID("tasksTest.dat");
+	fclose(f);
+	ASSERT_EQUAL(48, result);
+}
+
+CTEST(COUNT_ID_FUNCTION, returnID_67)
+{
+	FILE* f = fopen("tasksTest.dat", "wb");
+	int id1 = 40, id2 = 20, id3 = id1 + id2 + 7;
+
+	task.id = id1;
+	fwrite(&task, sizeof(task), 1, f);
+	task.id = id2;
+	fwrite(&task, sizeof(task), 1, f);
+	task.id = id3;
+	fwrite(&task, sizeof(task), 1, f);
+
+	int result = countID("tasksTest.dat");
+	fclose(f);
+	ASSERT_EQUAL(67, result);
+}
+
+CTEST(COUNT_ID_FUNCTION, id_returned99)
+{
+	FILE* f = fopen("tasksTest.dat", "wb");
+
+	int i;
+	for (i = 0; i < 100; i++) {
+		task.id = i;
+		fwrite(&task, sizeof(task), 1, f);
+	}
+
+	fclose(f);
+	int result = countID("tasksTest.dat");
+	ASSERT_EQUAL(99, result);
+}
+
+CTEST(COUNT_ID_FUNCTION, id_returnedMidPoint_200)
+{
+	FILE* f = fopen("tasksTest.dat", "wb");
+
+	int i;
+	for (i = 1; i <= 400; i++) {
+		task.id = i;
+		fwrite(&task, sizeof(task), 1, f);
+	}
+
+	fclose(f);
+	int result = countID("tasksTest.dat") / 2;
+	ASSERT_EQUAL(200, result);
+}
+
+CTEST(COUNT_ID_FUNCTION, id_returned10000)
+{
+	FILE* f = fopen("tasksTest.dat", "wb");
+
+	int i;
+	for (i = 1; i <= 10000; i++) {
+		task.id = i;
+		fwrite(&task, sizeof(task), 1, f);
+	}
+
+	fclose(f);
+	int result = countID("tasksTest.dat");
+	ASSERT_EQUAL(10000, result);
 }
 
 CTEST(READ_FROM_FILE_TESTS, fileReadIntoArrayOK) {
