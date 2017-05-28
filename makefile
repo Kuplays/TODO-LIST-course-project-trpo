@@ -1,7 +1,7 @@
 CC = gcc
 FLAGS = -I includes
-EXEC = bin/testRun.exe
-TEST_EXEC = bin/TODO-test.exe
+EXEC = bin/todo.exe
+TEST_EXEC = bin/todo-test.exe
 BUILD_DIR = build/src
 BUILD_DIR_TEST = build/test
 
