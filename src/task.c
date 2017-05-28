@@ -114,7 +114,7 @@ void composeIndexArray(int* index, int indSize, struct Task* t) {
 }
 
 
-void printAllTasks(int descMode) {
+void printAllTasks(int descMode, int importantTask) {
     struct Task *tasks = getData("tasks.dat");
 
     int i;
@@ -125,6 +125,21 @@ void printAllTasks(int descMode) {
     composeIndexArray(indexArr, size, tasks);
 
     printf("\033c");
+
+    if (importantTask == 1) {
+        for (i = 0; i < size; i++) {
+            if(tasks[i].isImportant == importantTask) {
+                printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+                printf("\n==========================\n");
+            }
+        }
+	printf("\nPRESS ENTER TO CONTINUE...");
+	getchar();
+
+	return;	
+
+    }
 
     if (descMode == 1) {
         for (i = 0; i < size; i++) {
