@@ -61,6 +61,47 @@ CTEST(GET_SIZE_TESTS, elementsCount_2_OK) {
 	ASSERT_EQUAL(2, result);
 }
 
+CTEST(GET_SIZE_TESTS, changedSize) {
+	FILE *f = fopen("testGetSize.dat", "wb");
+	task.id = 100;
+	fwrite(&task, sizeof(task), 1, f);
+	fclose(f);
+
+	int result1 = getSize("testGetSize.dat"); //1
+
+	f = fopen("testGetSize.dat", "ab");
+	task.id = 200;
+	fwrite(&task, sizeof(task), 1, f);
+	fclose(f);
+
+	int result2 = getSize("testGetSize.dat");
+	ASSERT_NOT_EQUAL(result1, result2);
+}
+
+CTEST(GET_SIZE_TESTS, changedSize_GetBackToEqual) {
+	FILE *f = fopen("testGetSize.dat", "wb");
+	task.id = 100;
+	fwrite(&task, sizeof(task), 1, f);
+	fclose(f);
+
+	int result1 = getSize("testGetSize.dat"); //1
+
+	f = fopen("testGetSize.dat", "ab");
+	task.id = 200;
+	fwrite(&task, sizeof(task), 1, f);
+	fclose(f);
+
+	int result2 = getSize("testGetSize.dat"); //2
+
+	f = fopen("testGetSize.dat", "wb");
+	task.id = 999;
+	fwrite(&task, sizeof(task), 1, f);
+	fclose(f);
+
+	int result3 = getSize("testGetSize.dat"); //1
+	ASSERT_EQUAL(result2 - result1, result3);
+}
+
 CTEST(GET_SIZE_TESTS, elementsCount_10_OK) {
 	FILE *f = fopen("testGetSize.dat", "wb");
 	int count = 0;
@@ -74,6 +115,36 @@ CTEST(GET_SIZE_TESTS, elementsCount_10_OK) {
 	fclose(f);
 	int result = getSize("testGetSize.dat");
 	ASSERT_EQUAL(10, result);
+}
+
+CTEST(GET_SIZE_TESTS, elementsCount_9000_OK) {
+	FILE *f = fopen("testGetSize.dat", "wb");
+	int count = 0;
+
+	do {
+		task.id = count;
+		fwrite(&task, sizeof(task), 1, f);
+		count ++;
+	} while (count < 9000);
+
+	fclose(f);
+	int result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(9000, result);
+}
+
+CTEST(GET_SIZE_TESTS, elementsCount_20000_OK) {
+	FILE *f = fopen("testGetSize.dat", "wb");
+	int count = 0;
+
+	do {
+		task.id = count;
+		fwrite(&task, sizeof(task), 1, f);
+		count ++;
+	} while (count < 20000);
+
+	fclose(f);
+	int result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(20000, result);
 }
 
 CTEST(GETDATA_TESTS, EmptyArrayOK) {
