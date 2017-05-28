@@ -25,5 +25,4 @@ void composeIndexArray(int*, int, struct Task*);
 void showMenu();
 int file_exist(char *);
 int countID(char*);
-void printImportantTasks(FILE *file);
 #endif
