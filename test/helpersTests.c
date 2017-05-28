@@ -306,7 +306,7 @@ CTEST(COMPOSE_INDEX_ARRAY_TESTS, lastIsLesserThanSecond) {
 
 	composeIndexArray(indexArr, 25, tasks);
 	int result;
-	if (indexArr[25] < indexArr[1]) {
+	if (indexArr[24] < indexArr[1]) {
 		result = 1;
 	} else {
 		result = 0;
