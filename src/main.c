@@ -17,10 +17,13 @@ int main(int argc, char *argv[])
 			writeToFile(task);
 			break;
 			case 2:
-			printAllTasks(0);
+			printAllTasks(0, 0);
 			break;
 			case 3:
-			printAllTasks(1);
+			printAllTasks(1, 0);
+			break;
+			case 4:
+			printAllTasks(0, 1);
 			break;
 			case 5:
 			printf("\033c");
