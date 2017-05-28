@@ -4,6 +4,9 @@
 #include <string.h>
 #include "task.h"
 
+#define RED   "\x1B[31m"
+#define RESET "\x1B[0m"
+
 struct Task composeTask(int id, char* title, char *descr, int important) {
     struct Task newTask;
     newTask.id = id;
@@ -114,7 +117,7 @@ void composeIndexArray(int* index, int indSize, struct Task* t) {
 }
 
 
-void printAllTasks(int descMode) {
+void printAllTasks(int descMode, int importantTask) {
     struct Task *tasks = getData("tasks.dat");
 
     int i;
@@ -126,19 +129,48 @@ void printAllTasks(int descMode) {
 
     printf("\033c");
 
+    if (importantTask == 1) {
+        for (i = 0; i < size; i++) {
+            if(tasks[i].isImportant == importantTask) {
+                printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+                tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+                printf("\n==========================\n");
+            }
+        }
+	printf("\nPRESS ENTER TO CONTINUE...");
+	getchar();
+
+	return;	
+
+    }
+
     if (descMode == 1) {
         for (i = 0; i < size; i++) {
+	    if (tasks[i].isImportant == 1) {
+                printf(RED "[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s" RESET,
+                tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
+                printf("\n==========================\n");
+                continue;
+            }
             printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
                 tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
             printf("\n==========================\n");
         }
+
+
     } else {
         for (i = 0; i < size; i++) {
-            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+            if (tasks[i].isImportant == 1) {
+                printf(RED "[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s" RESET,
                 tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+                printf("\n==========================\n");
+                continue;
+            }
+	    printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s", 
+		tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
             printf("\n==========================\n");
         }
-    }
+      }
 
     printf("\nPRESS ENTER TO CONTINUE...");
     getchar();
@@ -195,31 +227,4 @@ int countID(char* fName)
     return id;
 }
 
-void printImportantTasks(FILE *file)
-{
-file = fopen("tasks.dat", "rb");
-fread(&task, sizeof(task), 1, file);
 
-printf("\e[2J\e[H");
-printf("=======IMPORTANT TASKS MODE===============\n\n");
-
-while (!feof(file))
-{
-if (task.isImportant)
-{
-printf("\nTASK ID: %d\n", task.id);
-printf("TITLE: %s", task.tTitle);
-printf("\nDESCRIPTION:\n%s", task.tInfo);
-printf("\nACCEPTED DATE: %s", task.tAcceptedDate);
-printf("\nIMPORTANT: %d\n", task.isImportant);
-//printf("\nPROGRESS STATE: %d\n", task.isInProgress);
-printf("\n=============\n\n");
-
-}
-fread(&task, sizeof(task), 1, file);
-}
-
-fclose(file);
-printf("\nEnter any key to continue...");
-getchar();
-}

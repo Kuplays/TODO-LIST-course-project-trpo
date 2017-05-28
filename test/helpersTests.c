@@ -177,3 +177,29 @@ CTEST(COMPOSE_INDEX_ARRAY_TESTS, indexComposingBehaviorOK) {
 
 	ASSERT_EQUAL(1, result);
 }
+
+CTEST(GET_SIZE_TESTS, elementsCount_3876_OK) {
+	int count, result;	
+
+	FILE *f = fopen("testGetSize.dat", "wb");
+	count = 0;
+
+	do {
+		task.id = 1;
+		fwrite(&task, sizeof(task), 1, f);
+		count ++;
+	} while (count < 3876);
+
+	fclose(f);
+	result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(3876, result);
+}
+
+CTEST(GET_SIZE_TESTS, fileCreatedButThenDeleted) {
+	int result;
+	FILE *f = fopen("testGetSize.dat", "wb");
+	fclose(f);
+	remove("testGetSize.dat");
+	result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(-1, result);
+}
