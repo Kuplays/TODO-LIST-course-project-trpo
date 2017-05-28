@@ -152,6 +152,89 @@ CTEST(COMPOSE_INDEX_ARRAY_TESTS, middlePointIsLesserThanFirstOK) {
 	ASSERT_EQUAL(1, result);
 }
 
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, lastIsLesserThanSecond) {
+	struct Task tasks[25];
+	int indexArr[25];
+	int i;
+
+	for (i = 0; i < 25; i++) {
+		tasks[i].id = i;
+	}
+
+	composeIndexArray(indexArr, 25, tasks);
+	int result;
+	if (indexArr[25] < indexArr[1]) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, differentID_Composed_FirstBiggest) {
+	struct Task tasks[4];
+	int indexArr[4];
+	int i;
+
+	tasks[0].id = 25;
+	tasks[1].id = 11;
+	tasks[2].id = 50;
+	tasks[3].id = 51;
+	composeIndexArray(indexArr, 4, tasks); 
+	int result;
+
+	if(tasks[indexArr[0]].id == 51) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, differentID_Composed_LastSmallest) {
+	struct Task tasks[4];
+	int indexArr[4];
+	int i;
+
+	tasks[0].id = 25;
+	tasks[1].id = 11;
+	tasks[2].id = 50;
+	tasks[3].id = 51;
+	composeIndexArray(indexArr, 4, tasks); 
+	int result;
+
+	if(tasks[indexArr[3]].id == 11) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
+CTEST(COMPOSE_INDEX_ARRAY_TESTS, differentID_Composed_SecondLessThanFirstAndBiggerThanNext) {
+	struct Task tasks[4];
+	int indexArr[4];
+	int i;
+
+	tasks[0].id = 25;
+	tasks[1].id = 11;
+	tasks[2].id = 50;
+	tasks[3].id = 51;
+	composeIndexArray(indexArr, 4, tasks); 
+	int result;
+
+	if(tasks[indexArr[1]].id < tasks[indexArr[0]].id && tasks[indexArr[1]].id > tasks[indexArr[2]].id) {
+		result = 1;
+	} else {
+		result = 0;
+	}
+
+	ASSERT_EQUAL(1, result);
+}
+
 CTEST(COMPOSE_INDEX_ARRAY_TESTS, indexComposingBehaviorOK) {
 	struct Task tasks[3];
 	int descArr[3];
