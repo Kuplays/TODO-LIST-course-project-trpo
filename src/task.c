@@ -4,6 +4,9 @@
 #include <string.h>
 #include "task.h"
 
+#define RED   "\x1B[31m"
+#define RESET "\x1B[0m"
+
 struct Task composeTask(int id, char* title, char *descr, int important) {
     struct Task newTask;
     newTask.id = id;
@@ -143,17 +146,31 @@ void printAllTasks(int descMode, int importantTask) {
 
     if (descMode == 1) {
         for (i = 0; i < size; i++) {
+	    if (tasks[i].isImportant == 1) {
+                printf(RED "[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s" RESET,
+                tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
+                printf("\n==========================\n");
+                continue;
+            }
             printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
                 tasks[indexArr[i]].id, tasks[indexArr[i]].tTitle, tasks[indexArr[i]].tInfo, tasks[indexArr[i]].tAcceptedDate);
             printf("\n==========================\n");
         }
+
+
     } else {
         for (i = 0; i < size; i++) {
-            printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s",
+            if (tasks[i].isImportant == 1) {
+                printf(RED "[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s" RESET,
                 tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
+                printf("\n==========================\n");
+                continue;
+            }
+	    printf("[ID]: %d\n[TITLE]: %s[DESCRIPTION]: %s[DATE ACCEPTED]: %s", 
+		tasks[i].id, tasks[i].tTitle, tasks[i].tInfo, tasks[i].tAcceptedDate);
             printf("\n==========================\n");
         }
-    }
+      }
 
     printf("\nPRESS ENTER TO CONTINUE...");
     getchar();
