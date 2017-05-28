@@ -195,3 +195,11 @@ CTEST(GET_SIZE_TESTS, elementsCount_3876_OK) {
 	ASSERT_EQUAL(3876, result);
 }
 
+CTEST(GET_SIZE_TESTS, fileCreatedButThenDeleted) {
+	int result;
+	FILE *f = fopen("testGetSize.dat", "wb");
+	fclose(f);
+	remove("testGetSize.dat");
+	result = getSize("testGetSize.dat");
+	ASSERT_EQUAL(-1, result);
+}
